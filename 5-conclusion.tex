@@ -1,0 +1,114 @@
+\chapter{Conclusions}
+  \label{chapter5}
+ 
+\section{Summary and Conclusions}
+
+In Chapter \ref{chapter2}, we have presented and analyzed a novel star-galaxy classification framework
+for combining star-galaxy classifiers using the CFHTLenS data.
+In particular, we use four independent classification techniques:
+a morphological separation method;
+TPC, a supervised machine learning technique
+based on prediction trees and a random forest;
+SOMc, an unsupervised machine learning approach
+based on self-organizing maps and a random atlas;
+and HB, a Hierarchical Bayesian template-fitting method
+that we have modified and parallelized.
+Using data from the CFHTLenS survey,
+we have considered different scenarios:
+when an excellent training set is available with spectroscopic labels from
+DEEP2, SDSS, VIPERS, and VVDS, and
+when the demographics of sources in a low-quality training set
+do not match the demographics of objects in the test data set.
+We demonstrate that the Bayesian Model Combination (BMC) technique improves
+the overall performance over any individual classification method
+in both cases.
+
+The problem of star-galaxy classification is a rich area for future research. It is unclear
+if sufficient training data will be available in future ground-based surveys. Furthermore, in
+large sky surveys such as DES and LSST, photometric quality is not uniform across the
+sky, and a purely morphological classifier alone will not be sufficient, especially at faint
+magnitudes. Given the efficacy of our approach, classifier combination strategies are likely
+the optimal approach for currently ongoing and forthcoming photometric surveys. Future
+studies could apply the combination technique described in Chapter \ref{chapter2} to other surveys
+such as the DES. Our approach can also be extended more broadly to classify objects that
+are neither stars nor galaxies (e.g., quasars). Finally, future studies could explore the use
+of multi-epoch data, which would be particularly useful for the next generation of synoptic
+surveys.
+
+In Chapter \ref{chapter3}, we have presented a convolutional neural network for classifying stars and
+galaxies in the SDSS and CFHTLenS photometric images.
+For the CFHTLenS data set, the network is able to provide a classification that
+is as accurate as a random forest algorithm (TPC), while the probability estimates of
+our ConvNet model appear to be better calibrated.
+When the same network architecture is applied to the SDSS data set,
+the network fails to outperform TPC,
+but the probabilities are still slightly better calibrated.
+The major advantage of ConvNets is that useful features are learned
+automatically from images, while traditional machine learning
+algorithms require feature engineering as a separate process
+to produce accurate classifications.
+
+Deep learning is a rapidly developing field, and recent developments include
+improved network architectures.
+Future work could explore more ConvNet variants, such as the
+Inception Module~\citep{szegedy2015going} and Residual Network~\citep{he2015deep}.
+To improve the predictive performance,
+we have combined the predictions of different models across multiple
+transformations of the input images (Section~\ref{sec:bmc}).
+To further improve the performance, we could also train several networks
+with different architectures and combine the models.
+For example, the winning solution of \cite{dieleman2015rotation}
+for the Galaxy Zoo challenge was based on a ConvNet model,
+and it required averaging many sets of predictions from models with different
+neural network architectures.
+It is also likely that the performance will be improved
+not only by training multiple network architectures,
+but also by combining them with different star-galaxy classifiers.
+ConvNets could be included as a different machine learning paradigm in the
+classifier combination framework to produce further improvements in
+predictive performance.
+
+Our ConvNet model is a supervised algorithm, and one of the criticisms
+of supervised techniques is their difficulty in extrapolating past the limits
+of available spectroscopic training data.
+Since it is difficult to assess the classification performance without a deeper
+spectroscopic sample, we evaluated the performance using a test set
+that is drawn from the same underlying distribution as the spectroscopic sample.
+However, when our ConvNet model---trained on sources from a spectroscopic sample--- is
+applied to a photometric sample---which is often fainter than our training set---the
+performance of ConvNet will be less reliable.
+Combining our ConvNet model with unsupervised methods (\eg a template fitting
+method) in the aforementioned meta-classification framework will
+help improve the efficacy of star-galaxy classification
+beyond the limits of spectroscopic training data.
+
+In Chapter \ref{chapter4}, we have presented a semi-supervised generative adversarial network for classifying stars, galaxies, and quasars in the SDSS photometric images.
+We have demonstrated that the brightness and size distributions of images generated by our generative model
+are in good agreement with those of the SDSS photometric images.
+However, unlike most work on GANs, our focus was not solely on the generation of realistic images.
+By using a small number of labeled images in conjunction with a large amount of unlabeled training data,
+we have shown that our semi-supervised GAN is able to provide a classification that is comparable to the state-of-the-art
+supervised methods.
+we have also demonstrated the use of various scientific tools to validate our deep generative model.
+In astronomy, we have powerful techniques for characterizing classifications, even in the absence of spectroscopic labels.
+In contrast, most of the data sets used in the deep learning community are composed of natural images and text corpuses,
+which lack such statistical techniques,
+and direct comparison between different generative models is often difficult 
+\citep{theis2016note}.
+As a result, Astronomy has the potential to provide robust frameworks for evaluation and interpretation of generative models.
+
+We used photometry and spectra from the SDSS.
+While the SDSS provides a rich data set for deep learning,
+it is limited to the optical and near-infrared wavelengths.
+Future studies could explore combining multiple photometry sources by matching the SDSS objects to
+photometric objects in other surveys, such as GALEX, WISE, or UKIDSS.
+Future studies could also explore different strategies to improve the quality of generated images.
+For example, although we used feature matching in this work to obtain a strong classifier,
+if the goal is to improve the quality of generated images, an alternative technique
+called minibatch discrimination will likely work better \citep{salimans2016improved,dai2017good}.
+Finally, future studies could investigate the application of deep generative models in other settings,
+such as unsupervised classification, object segmentation, and redshift estimation.
+
+\clearpage
+\bibliographystyle{plainnat}
+\bibliography{thesisbib}

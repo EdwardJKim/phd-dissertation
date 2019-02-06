@@ -1,0 +1,202 @@
+%%
+%% This is file `thesis-ex.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uiucthesis2014.dtx  (with options: `example')
+%% 
+\def\fileversion{v2.25b} \def\filedate{2017/05/02}
+%% Package and Class "uiucthesis2014" for use with LaTeX2e.
+\documentclass[12pt,edeposit,fullpage]{uiucthesis2014}
+
+% references at the end of each chapter
+\usepackage[round,sectionbib]{natbib}
+\usepackage{chapterbib}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bibentry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{rotating}
+
+\def\aap{{A\&A}}
+\def\AaA{{A\&A}}
+\def\AJ{{AJ}}
+\def\aj{{AJ}}
+\def\ApJ{{ApJ}}
+\def\apj{{ApJ}}
+\def\apjl{{ApJL}}
+\def\ApJL{{ApJL}}
+\def\ApJSupp{{ApJS}}
+\def\MN{{MNRAS}}
+\def\mnras{{MNRAS}}
+\def\mnrasl{{MNRAS Letters}}
+\def\pasp{{PASP}}
+\def\jcap{JCAP}
+\def\pasj{{PASJ}}
+\def\nat{Nature}
+\def\ARAA{{ARA\&A}}
+\def\apjs{{ApJS}}
+\def\araa{{ARA\&A}}
+\def\apss{{Ap\&SS}}
+\def\cjaa{{ChJAA}}
+\def\aaps{{A\&AS}}
+
+\newcommand{\eg}{{e.g., }}
+\newcommand{\ie}{{i.e., }}
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+% put figure on a new page
+\renewcommand{\floatpagefraction}{0.1}
+
+\nocopyrightpage
+
+\begin{document}
+
+\title{Machine Learning Approaches to\\
+       Star-galaxy Classification}
+\author{Junhyung Kim}
+\department{Physics}
+\phdthesis
+\advisor{Robert J.\ Brunner}
+\degreeyear{2018}
+\committee{
+    Professor Emeritus Jon J.\ Thaler, Chair\\
+    Professor Robert J.\ Brunner, Director of Research\\
+    Professor George D.\ Gollin\\
+    Assistant Professor Alexander G.\ Schwing}
+\maketitle
+
+\frontmatter
+
+%% Create an abstract that can also be used for the ProQuest abstract.
+%% Note that ProQuest truncates their abstracts at 350 words.
+\begin{abstract}
+Accurate star-galaxy classification has many important applications in modern precision cosmology.
+However, a vast number of faint sources that are detected in the current and
+next-generation ground-based surveys may be challenged by poor star-galaxy classification.
+Thus, we explore a variety of machine learning approaches to improve
+star-galaxy classification in ground-based photometric surveys.
+In Chapter~\ref{chapter2}, we present a meta-classification framework that combines existing star-galaxy classifiers,
+and demonstrate that our Bayesian combination technique improves the overall performance over any individual classification method.
+In Chapter~\ref{chapter3}, we show that a deep learning algorithm called convolutional neural networks
+is able to produce accurate and well-calibrated classifications by learning directly from the pixel values of photometric images.
+In Chapter~\ref{chapter4}, we study another deep learning technique called generative adversarial networks
+in a semi-supervised setting, and demonstrate that our semi-supervised method produces competitive classifications
+using only a small amount of labeled examples.
+
+\end{abstract}
+
+%% Create a dedication in italics with no heading, centered vertically
+%% on the page.
+%\begin{dedication}
+%To Father and Mother.
+%\end{dedication}
+
+%% Create an Acknowledgements page, many departments require you to
+%% include funding support in this.
+\chapter*{Acknowledgments}
+
+First and formorest, I would like to thank my advisor, Robert Brunner, for his guidance and support
+during my graduate studies at UIUC.
+I also wish to thank my committee members, Jon Thaler, George Gollin, and Alex Schwing, for their help and support.
+I am also grateful to Matias Carrasco Kind, Yiran Wang, Nacho Sevilla, William Biscarri, Samantha Thrush, Xinyang Lu, and Kelechi Ikegwu.
+A special thanks to my father and my wife who endured this long process with me.
+
+\begin{flushright}
+--- Edward Junhyung Kim
+\end{flushright}
+
+\vspace{10mm}
+
+This work was supported in part by the National Science Foundation Grant
+No.\ AST-1313415.
+This work used the Extreme Science and Engineering Discovery Environment
+(XSEDE), which is supported by National Science Foundation grant number
+ACI-1053575.
+This work is based on observations obtained with MegaPrime/MegaCam, a
+joint project of CFHT and CEA/DAPNIA, at the Canada-France-Hawaii
+Telescope (CFHT) which is operated by the National Research Council
+(NRC) of Canada, the Institut National des Sciences de l'Univers of
+the Centre National de la Recherche Scientifique (CNRS) of France, and
+the University of Hawaii. This research used the facilities of the
+Canadian Astronomy Data Centre operated by the National Research
+Council of Canada with the support of the Canadian Space Agency.
+CFHTLenS data processing was made possible thanks to significant
+computing support from the NSERC Research Tools and Instruments grant
+program.
+Funding for the DEEP2 survey has been provided by NSF grants AST-0071048,
+AST-0071198, AST-0507428, and AST-0507483. 
+Funding for SDSS-III has been provided by the Alfred P. Sloan Foundation, the
+Participating Institutions, the National Science Foundation, and the U.S.
+Department of Energy Office of Science. The SDSS-III web site is
+http://www.sdss3.org/.
+This work used data from the 
+VIMOS Public Extragalactic Redshift Survey (VIPERS).
+VIPERS has been performed using the ESO Very Large Telescope, under the "Large
+Programme" 182.A-0886. The participating institutions and funding agencies are
+listed at http://vipers.inaf.it/.
+This work used data from the VIMOS VLT Deep Survey, obtained from the VVDS
+database operated by Cesam, Laboratoire d'Astrophysique de Marseille, France.
+
+%% The thesis format requires the Table of Contents to come
+%% before any other major sections, all of these sections after
+%% the Table of Contents must be listed therein (i.e., use \chapter,
+%% not \chapter*).  Common sections to have between the Table of
+%% Contents and the main text are:
+%%
+%% List of Tables
+%% List of Figures
+%% List Symbols and/or Abbreviations
+%% etc.
+
+\tableofcontents
+%\listoftables
+%\listoffigures
+
+%% Create a List of Abbreviations. The left column
+%% is 1 inch wide and left-justified
+%\chapter{List of Abbreviations}
+%
+%\begin{symbollist*}
+%\item[CA] Caffeine Addict.
+%\item[CD] Coffee Drinker.
+%\end{symbollist*}
+
+%% Create a List of Symbols. The left column
+%% is 0.7 inch wide and centered
+%\chapter{List of Symbols}
+%
+%\begin{symbollist}[0.7in]
+%\item[$\tau$] Time taken to drink one cup of coffee.
+%\item[$\mu$g] Micrograms (of caffeine, generally).
+%\end{symbollist}
+
+\mainmatter
+
+\include{1-introduction}
+\include{2-kim2015hybrid}
+\include{3-kim2017star}
+\include{4-kim2017ssgan}
+\include{5-conclusion}
+
+%\appendix*
+%\include{Appendix.tex}
+
+\backmatter
+
+%\bibliographystyle{plainnat}
+%\bibliography{thesisbib}
+
+\end{document}
+\endinput
+%%
